@@ -29,7 +29,7 @@ const fastify = Fastify({
   logger: true // Enables built-in logging
 });
 fastify.register(cors, {
-  origin: ['http://localhost:5173'], // frontend origin
+  origin: ['http://localhost:5173', 'https://fit-trackweb.netlify.app'], // frontend origin
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true, // needed if sending cookies or credentials

@@ -1,13 +1,13 @@
 import mongoose, { Document, Schema, Types } from "mongoose";
 
 export interface WorkoutSet {
-  reps?: number;
-  weight?: number;
-  time?: number;
-  distance?: number;
-  rest?: number;
-  type?: "warmup" | "normal" | "failure" | "dropset";
-  done?: boolean;
+  reps?: number | undefined;
+  weight?: number | undefined;
+  time?: number | undefined;
+  distance?: number | undefined;
+  rest?: number | undefined;
+  type?: "warmup" | "normal" | "failure" | "dropset" | undefined;
+  done?: boolean | undefined;
 }
 
 export interface WorkoutExercise {
@@ -19,10 +19,10 @@ export interface WorkoutExercise {
 
 export interface WorkoutSessionDocument extends Document {
   userId: string;
-  routineId?: Types.ObjectId;
+  routineId?: Types.ObjectId | undefined;
   exercises: WorkoutExercise[];
-  calories?: number;
-  total_duration?: number;
+  calories?: number | undefined;
+  total_duration?: number | undefined;
   createdAt: Date;
   updatedAt: Date;
 }

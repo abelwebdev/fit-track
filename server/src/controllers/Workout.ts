@@ -60,11 +60,13 @@ export const createWorkout = async (
       return reply.code(400).send({ message: "Workout must include at least one exercise" });
     }
 
+    const routineObjectId = routineId && mongoose.Types.ObjectId.isValid(routineId)
+      ? new mongoose.Types.ObjectId(routineId)
+      : null;
+
     const workoutPayload = {
       userId,
-      routineId: routineId && mongoose.Types.ObjectId.isValid(routineId)
-        ? new mongoose.Types.ObjectId(routineId)
-        : undefined,
+      ...(routineObjectId ? { routineId: routineObjectId } : {}),
       exercises: exercises.map((exercise, index) => {
         if (!mongoose.Types.ObjectId.isValid(exercise.exerciseId)) {
           throw new Error(`Invalid exerciseId: ${exercise.exerciseId}`);
@@ -84,13 +86,12 @@ export const createWorkout = async (
           })),
         };
       }),
-      calories,
-      total_duration: duration,
+      ...(calories !== undefined ? { calories } : {}),
+      ...(duration !== undefined ? { total_duration: duration } : {}),
     };
 
     const workout = await WorkoutSessionModel.create(workoutPayload);
-    const workoutObj = workout.toObject();
-    delete workoutObj.userId;
+    const { userId: _removedUserId, ...workoutObj } = workout.toObject();
     return reply.code(201).send({
       status: "success",
       data: workoutObj,
@@ -121,10 +122,12 @@ export const updateWorkout = async (
       return reply.code(400).send({ message: "Workout must include at least one exercise" });
     }
 
+    const routineObjectId = routineId && mongoose.Types.ObjectId.isValid(routineId)
+      ? new mongoose.Types.ObjectId(routineId)
+      : null;
+
     const updatePayload = {
-      routineId: routineId && mongoose.Types.ObjectId.isValid(routineId)
-        ? new mongoose.Types.ObjectId(routineId)
-        : undefined,
+      ...(routineObjectId ? { routineId: routineObjectId } : {}),
       exercises: exercises.map((exercise, index) => {
         if (!mongoose.Types.ObjectId.isValid(exercise.exerciseId)) {
           throw new Error(`Invalid exerciseId: ${exercise.exerciseId}`);
@@ -144,8 +147,8 @@ export const updateWorkout = async (
           })),
         };
       }),
-      calories,
-      total_duration: duration,
+      ...(calories !== undefined ? { calories } : {}),
+      ...(duration !== undefined ? { total_duration: duration } : {}),
     };
 
     const updatedWorkout = await WorkoutSessionModel.findOneAndUpdate(
