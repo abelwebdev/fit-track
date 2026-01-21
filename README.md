@@ -1,6 +1,6 @@
 # Fit Track
 
-Fit Track is a MERN Stack fitness companion web app that pairs a React dashboard with a Fastify API so athletes can visualize progress, manage workouts, and keep their data in sync across devices.
+Fit Track is a Full-Stack fitness companion web app that pairs a React dashboard with a Fastify API so users can visualize progress, manage workouts, and keep their data in sync across devices.
 
 ## Tech Stack
 
@@ -28,7 +28,7 @@ Fit Track is a MERN Stack fitness companion web app that pairs a React dashboard
 
 1. Clone the repository and install dependencies for both workspaces:
    ```bash
-   git clone <https://github.com/abelwebdev/fit-track>
+   git clone https://github.com/abelwebdev/fit-track
    cd fit-track
    cd client
    npm install
