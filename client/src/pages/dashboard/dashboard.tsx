@@ -130,7 +130,6 @@ export default function DashboardPage() {
   useEffect(() => {
     if (currentUser && userSettingsData) {
       // Settings are automatically loaded via RTK Query and handled by the settings slice
-      console.log('User settings loaded:', userSettingsData);
     }
   }, [currentUser, userSettingsData]);
 
